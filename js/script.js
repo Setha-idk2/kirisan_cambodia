@@ -195,8 +195,7 @@ function createProductCard(product) {
         <span class="badge flavour-badge">${product.flavour}</span>
       </div>
       <h3>${product.Name}</h3>
-      <p class="product-description"><strong>${product.description}</strong></p>
-      <p class="product-detail">${product.detail}</p>
+      <p class="product-detail">${product.description}</p>
     </div>
   `;
 
