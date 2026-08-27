@@ -13,7 +13,7 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.6;
   color: #1f2937;
-  background-color: #f2ffff;
+  background-color: #EEEEEE;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -25,6 +25,11 @@ body {
   width: 100%;
   margin: 0 auto;
   padding: 3rem 2rem;
+}
+
+.home-content {
+  max-width: none;
+  padding: 0;
 }
 
 /* --- HEADER & NAVBAR --- */
@@ -109,25 +114,75 @@ body {
   font-size: 1.1rem;
 }
 
+/* --- PAGE INTRO & HERO --- */
 .hero-section {
-  text-align: center;
-  padding: 4rem 1rem 5rem 1rem;
-  background: #fcfeff;
-  border-radius: 12px;
-  margin-bottom: 3rem;
+  min-height: calc(100vh - 81px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
+  align-items: center;
+  gap: 4rem;
+  padding: clamp(3rem, 8vw, 7rem) clamp(1.5rem, 7vw, 7rem);
+  background: linear-gradient(135deg, #e7fbfa 0%, #f8ffff 52%, #d7f3f1 100%);
+  border: 1px solid #c7e7e5;
+  border-radius: 4px;
+  margin-bottom: 4rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+}
+
+.hero-section .hero-eyebrow {
+  color: #0e7490;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
 }
 
 .hero-section h1 {
-  font-size: 2.5rem;
+  font-size: clamp(2.8rem, 5.5vw, 5.5rem);
+  line-height: 1.02;
   color: #111827;
   margin-bottom: 1rem;
 }
 
 .hero-section p {
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
   color: #4b5563;
   max-width: 600px;
-  margin: 0 auto 2rem auto;
+  margin-bottom: 2rem;
+}
+
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+}
+
+.hero-visual img {
+  width: min(100%, 180px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 24px rgba(0, 86, 112, 0.2));
+  animation: heroLogoEnter 0.8s ease-out both;
+}
+
+@keyframes heroLogoEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.88) translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
 }
 
 .btn {
@@ -538,6 +593,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 1.2rem;
+  margin-top: 14px;
 }
 
 .contact-item-details {
@@ -578,6 +634,7 @@ body {
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
 }
 
 .map-preview-card img {
@@ -614,6 +671,11 @@ body {
   align-items: start;
 }
 
+.footer-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
 .footer-brand {
   color: #ffffff;
   font-size: 1.15rem;
@@ -637,6 +699,7 @@ body {
   color: #d1d5db;
   margin-bottom: 1.25rem;
   max-width: 320px;
+  text-decoration: none;
 }
 
 .footer-contact-item {
@@ -771,6 +834,21 @@ body {
   .contact-grid {
     grid-template-columns: 1fr;
   }
+
+  .hero-section {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 4rem 1.5rem;
+  }
+
+  .hero-section h1 {
+    font-size: clamp(2.6rem, 12vw, 4rem);
+  }
+
+  .hero-visual img {
+    width: min(100%, 360px);
+  }
 }
 
 @media (max-width: 600px) {
@@ -814,4 +892,11 @@ body {
     flex: 0 0 120px;
     height: 120px;
   }
+}
+
+.home-content .products-section {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem 3rem;
 }
