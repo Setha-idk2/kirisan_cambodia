@@ -222,6 +222,22 @@ function populateFlavourOptions(products) {
   });
 }
 
+function populateAnimalOptions(products) {
+  const animalSelect = document.getElementById('animal-filter');
+  if (!animalSelect) return;
+
+  const animals = [...new Set(products.map(product => product.category).filter(Boolean))];
+  animals.sort();
+
+  animalSelect.innerHTML = '<option value="all">All Animals</option>';
+  animals.forEach(animal => {
+    const option = document.createElement('option');
+    option.value = animal.toLowerCase();
+    option.textContent = animal.charAt(0).toUpperCase() + animal.slice(1);
+    animalSelect.appendChild(option);
+  });
+}
+
 function filterAndRenderProducts() {
   const allProductsContainer = document.getElementById('all-products');
   const noResultsElement = document.getElementById('no-results');
@@ -229,10 +245,12 @@ function filterAndRenderProducts() {
 
   const searchInput = document.getElementById('search-input');
   const subcategorySelect = document.getElementById('subcategory-filter');
+  const animalSelect = document.getElementById('animal-filter');
   const flavourSelect = document.getElementById('flavour-filter');
 
   const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
   const selectedSubcat = subcategorySelect ? subcategorySelect.value.toLowerCase() : 'all';
+  const selectedAnimal = animalSelect ? animalSelect.value.toLowerCase() : 'all';
   const selectedFlavour = flavourSelect ? flavourSelect.value.toLowerCase() : 'all';
 
   const filtered = allProductsList.filter(product => {
@@ -244,10 +262,12 @@ function filterAndRenderProducts() {
     const matchesQuery = !query || nameMatch || subcatMatch || flavourMatch || sizeMatch;
     const matchesSubcategory = selectedSubcat === 'all' || 
       (product.subcategory && product.subcategory.toLowerCase() === selectedSubcat);
+    const matchesAnimal = selectedAnimal === 'all' ||
+      (product.category && product.category.toLowerCase() === selectedAnimal);
     const matchesFlavour = selectedFlavour === 'all' || 
       (product.flavour && product.flavour.toLowerCase() === selectedFlavour);
 
-    return matchesQuery && matchesSubcategory && matchesFlavour;
+    return matchesQuery && matchesSubcategory && matchesAnimal && matchesFlavour;
   });
 
   allProductsContainer.innerHTML = '';
@@ -265,10 +285,12 @@ function filterAndRenderProducts() {
 function setupFilterListeners() {
   const searchInput = document.getElementById('search-input');
   const subcategorySelect = document.getElementById('subcategory-filter');
+  const animalSelect = document.getElementById('animal-filter');
   const flavourSelect = document.getElementById('flavour-filter');
 
   if (searchInput) searchInput.addEventListener('input', filterAndRenderProducts);
   if (subcategorySelect) subcategorySelect.addEventListener('change', filterAndRenderProducts);
+  if (animalSelect) animalSelect.addEventListener('change', filterAndRenderProducts);
   if (flavourSelect) flavourSelect.addEventListener('change', filterAndRenderProducts);
 }
 
@@ -299,6 +321,7 @@ async function loadProductsFromJSONL() {
 
     if (allProductsContainer) {
       populateFlavourOptions(allProductsList);
+      populateAnimalOptions(allProductsList);
       setupFilterListeners();
       filterAndRenderProducts();
     }

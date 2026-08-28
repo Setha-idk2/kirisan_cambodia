@@ -34,7 +34,7 @@ body {
 
 /* --- HEADER & NAVBAR --- */
 .site-header {
-  background-color: #005670;
+  background-color: #068db6;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -167,7 +167,7 @@ body {
 }
 
 .hero-visual img {
-  width: min(100%, 180px);
+  width: min(100%, 300px);
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 20px 24px rgba(0, 86, 112, 0.2));
@@ -288,8 +288,9 @@ body {
 /* --- PRODUCT GRID & MARKETPLACE CARD LAYOUT --- */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 320px));
   gap: 1.25rem;
+  justify-content: start;
 }
 
 .product-card {
@@ -300,8 +301,11 @@ body {
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  min-width: 0;
+  width: min(100%, 320px);
+  min-width: min(100%, 240px);
+  max-width: 320px;
+  min-height: 380px;
+  max-height: 460px;
   box-shadow: 0 4px 10px rgba(15, 23, 42, 0.12);
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -315,7 +319,9 @@ body {
 .product-image {
   position: relative;
   width: 100%;
-  height: 220px;
+  height: clamp(200px, 20vw, 240px);
+  min-height: 200px;
+  max-height: 240px;
   background-color: #f1f5f4;
   overflow: hidden;
   display: flex;
@@ -882,13 +888,6 @@ body {
 
   .map-col {
     justify-content: flex-start;
-  }
-}
-
-@media (max-width: 850px) {
-  .product-grid {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
   }
 }
 
